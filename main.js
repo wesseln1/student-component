@@ -72,39 +72,39 @@ const students = [
         info: "Needs to contribute to in-class discussions",
         score: 95
     }
-  ]
-  
-  const container = document.querySelector('#container');
-  
-  const h1 = (title, style) => {
-      return `<h1 class="${style}">${title}</h1>`
-  }
-  
-  const section = (title, style) => {
-      return `<section class="bordered dashed ${style}">${title}</section>`
-  }
-  
-  const aside = (title, style) => {
-      return `<aside class="${style}">${title}</aside>`
-  }
-  
-  for (student of students) {
-      let studentComponent = ""
-      if (student.score >= 60) {
-          studentComponent = `<div class="student">
-          ${h1(student.name, "xx-large passing")}
-          ${section(student.class, "section--padded")}
-          ${aside(student.info, "pushRight")}
-      </div>`
-      } else {
-        studentComponent = `
-        <div class="student">
-            ${h1(student.name, "xx-large failing")}
-            ${section(student.class, "section--padded")}
-            ${aside(student.info, "pushRight")}
-        </div>`
-      }
-      container.innerHTML += studentComponent
-  }
-  
- 
+]
+
+const container = document.querySelector('#container');
+
+const h1 = (title, style) => {
+    return `<h1 class="${style}">${title}</h1>`
+}
+
+const section = (title, style) => {
+    return `<section class="bordered dashed ${style}">${title}</section>`
+}
+
+const aside = (title, style) => {
+    return `<aside class="${style}">${title}</aside>`
+}
+
+const buildString = (student, status) => {
+    return `<div class="student">` +
+        h1(student.name, "xx-large " + status) +
+        `${section(student.class, "section--padded")}
+        ${aside(student.info, "pushRight")}
+    </div>`
+}
+
+for (student of students) {
+    let studentComponent = ""
+    if (student.score >= 60) {
+        studentComponent = buildString(student, "passing")
+    } else {
+        studentComponent = buildString(student, "failing")
+    }
+    container.innerHTML += studentComponent
+}
+
+
+
